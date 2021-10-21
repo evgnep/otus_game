@@ -30,7 +30,6 @@ script:
   - cmake .
   - cmake --build .
   - cmake --build . --target package
-  - doxygen Doxyfile
   - ./test/tb_game
 deploy:
   provider: script
