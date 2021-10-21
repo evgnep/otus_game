@@ -35,4 +35,4 @@ deploy:
   provider: script
   skip_cleanup: true
   script:
-  - curl -H "X-JFrog-Art-Api:%{$BINTRAY_API_KEY}" -XPUT "https://cdandrey.jfrog.io/artifactory/otus_game-debian-remote-cache/;deb.distribution=trusty;deb.component=main;deb.architecture=amd64;" -T prj_game-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb
+  - curl -H "X-JFrog-Art-Api:AKCp8k8EUALoLa2evcFnW8p6ZGjA5Hnyk7HREcPsXxHYPy7FzHUR3KzKE8LmReSu1rRRmL4iQ" -XPUT "https://cdandrey.jfrog.io/artifactory/otus_game-debian-remote-cache/;deb.distribution=trusty;deb.component=main;deb.architecture=amd64;" -T prj_game-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb
