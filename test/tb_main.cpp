@@ -5,8 +5,6 @@ TEST(tb_game,move)
 {
     EXPECT_EQ(true,true);
 }
-//----------------------------------------------------------------------------------
-
 
 int main (int argc,char *argv[])
 {
