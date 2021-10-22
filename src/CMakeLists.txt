@@ -4,7 +4,18 @@
 cmake_minimum_required(VERSION 3.2)
 
 set(THIS game)
-set(SOURCES main.cpp)
+set(HEADERS 
+    AbstractObject.h
+    ObjectTank.h
+    Property.h
+    Vector.h
+)
+
+set(SOURCES
+    main.cpp
+    ObjectTank.cpp
+    Vector.cpp
+)
 
 if (DEFINED ENV{TRAVIS_BUILD_NUMBER})
     project(${THIS} VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
@@ -12,7 +23,7 @@ else()
     project(${THIS} VERSION 0.0.1)
 endif()
 
-add_executable(${THIS} ${SOURCES})
+add_executable(${THIS} ${HEADERS} ${SOURCES})
 
 set_target_properties(
         ${THIS}
