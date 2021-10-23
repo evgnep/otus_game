@@ -30,7 +30,7 @@ script:
   - cmake .
   - cmake --build .
   - cmake --build . --target package
-  - ./test/tb_game
+  - ./test/tb_main
 deploy:
   provider: script
   skip_cleanup: true
