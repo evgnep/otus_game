@@ -4,8 +4,6 @@ namespace otg {
 
 struct Vector 
 {
-    Vector(int x_ = 0,int y_ = 0,int z_ = 0);
-
     int x = 0;
     int y = 0;
     int z = 0;

@@ -1,7 +1,7 @@
 
 #include <gtest/gtest.h>
 
-TEST(tb_game,move)
+TEST(tb_main,move)
 {
     EXPECT_EQ(true,true);
 }

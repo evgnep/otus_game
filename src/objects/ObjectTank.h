@@ -13,8 +13,8 @@ public:
 
 private:
 
-    Vector m_position = 0;
-    Vector m_velocity = 0;
+    Vector m_position = {};
+    Vector m_velocity = {};
     int m_fuel = 0;
 };
 

@@ -1,66 +1,32 @@
-
-# src cmd_prcsg
-
 cmake_minimum_required(VERSION 3.2)
 
-set(THIS game)
-set(HEADERS 
-    AbstractObject.h
-    ObjectTank.h
-    Property.h
-    Vector.h
+set(object_headers
+    objects/AbstractObject.h
+    objects/ObjectTank.h
 )
 
-set(SOURCES
-    main.cpp
-    ObjectTank.cpp
-    Vector.cpp
+set(object_sources
+    objects/ObjectTank.cpp
 )
 
-if (DEFINED ENV{TRAVIS_BUILD_NUMBER})
-    project(${THIS} VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
-else()
-    project(${THIS} VERSION 0.0.1)
-endif()
-
-add_executable(${THIS} ${HEADERS} ${SOURCES})
-
-set_target_properties(
-        ${THIS}
-        PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED ON
+set(types_headers
+    types/Property.h
+    types/Vector.h
 )
 
-target_include_directories(
-        ${THIS}
-        PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/../lib
+set(types_sources
+    types/Vector.cpp
 )
 
-target_link_libraries(
-        ${THIS}
-        ${LIBS}
+add_library(OtgLib
+    STATIC
+    ${object_headers}
+    ${object_sources}
+    ${types_headers}
+    ${types_sources}
 )
-
-if (MSVC)
-
-    target_compile_options(
-        ${THIS}
-        PRIVATE
-        /W4
-    )
-
-else()
-
-    target_compile_options(
-        ${THIS}
-        PRIVATE
-        -Wall -Wextra -pedantic -Werror
-    )
-
-endif()
-
-install(TARGETS ${THIS} RUNTIME DESTINATION bin)
-
-
+target_compile_definitions(OtgLib
+    PUBLIC
+    UNICODE
+    _UNICODE
+)

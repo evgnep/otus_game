@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 
-#include "Property.h"
+#include "../types/Property.h"
 
 namespace otg {
 
