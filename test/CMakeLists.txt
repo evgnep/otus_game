@@ -6,6 +6,7 @@ if (DEFINED ENV{PC_00330_80000_00000_AA472})
 endif()
 
 find_package(GTest REQUIRED)
+find_package(Threads REQUIRED)
 
 set(this tb_main)
 set(source tb_main.cpp)
@@ -19,6 +20,7 @@ target_include_directories(
 )
 
 target_link_libraries(${this} ${GTEST_BOTH_LIBRARIES})
+target_link_libraries(${THIS} ${CMAKE_THREAD_LIBS_INIT})
 
 if (MSVC)
     target_compile_options(
