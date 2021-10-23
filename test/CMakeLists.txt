@@ -20,7 +20,7 @@ target_include_directories(
 )
 
 target_link_libraries(${this} ${GTEST_BOTH_LIBRARIES})
-target_link_libraries(${THIS} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${this} ${CMAKE_THREAD_LIBS_INIT})
 
 if (MSVC)
     target_compile_options(
