@@ -17,33 +17,29 @@ enum class PropertyKey
     Ammo
 };
 
-//template<PropertyKey A>
-//struct PropertyType {};
-//
-//template<>
-//struct PropertyType<PropertyKey::Position> {using type = Vector;};
-//
-//template<>
-//struct PropertyType<PropertyKey::Velocity> {using type = Vector;};
-//
-//template<>
-//struct PropertyType<PropertyKey::Health> {using type = int;};
-//
-//template<>
-//struct PropertyType<PropertyKey::Fuel> {using type = int;};
-//
-//template<>
-//struct PropertyType<PropertyKey::Ammo> {using type = int;};
-//
-//using PropertyValue = std::variant<PropertyType<PropertyKey::Position>,
-//                                   PropertyType<PropertyKey::Velocity>,
-//                                   PropertyType<PropertyKey::Health>,
-//                                   PropertyType<PropertyKey::Fuel>,
-//                                   PropertyType<PropertyKey::Ammo>>;
-
 using PropertyValue = std::variant<int,Vector>;
+
+template<PropertyKey key>
+struct Property {};
+
+#define SPECIFY_PROPERTY_TYPE(Key,Type)                         \
+    template<>                                                  \
+    struct Property<PropertyKey::Key>                           \
+    {                                                           \
+        using type = Type;                                      \
+        static constexpr PropertyKey key = PropertyKey::Key;    \
+        static constexpr auto init_value = std::pair{key,type{}};     \
+    };                                                          \
+    using Property##Key = Property<PropertyKey::Key>;           \
+
+SPECIFY_PROPERTY_TYPE(Position,otg::Vector)
+SPECIFY_PROPERTY_TYPE(Velocity,otg::Vector)
+SPECIFY_PROPERTY_TYPE(Health,int)
+SPECIFY_PROPERTY_TYPE(Fuel,int)
+SPECIFY_PROPERTY_TYPE(Ammo,int)
+
+
 using PropertyValueOpt = std::optional<PropertyValue>;
-using PropertyPair = std::pair<PropertyKey,PropertyValue>;
 using PropertyMap = std::unordered_map<PropertyKey,PropertyValue>;
 
 }

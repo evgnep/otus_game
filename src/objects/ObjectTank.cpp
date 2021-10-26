@@ -3,10 +3,10 @@
 namespace otg {
 
 ObjectTank::ObjectTank()
-        : ObjectBase{std::pair{PropertyKey::Position,Vector{}},
-                     std::pair{PropertyKey::Velocity,Vector{}},
-                     std::pair{PropertyKey::Health,0},
-                     std::pair{PropertyKey::Fuel,0}}
+        : ObjectBase{PropertyPosition::init_value,
+                     PropertyVelocity::init_value,
+                     PropertyHealth::init_value,
+                     PropertyFuel::init_value}
 {
 }
 
