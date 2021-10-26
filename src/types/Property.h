@@ -41,6 +41,5 @@ SPECIFY_PROPERTY_TYPE(Ammo,int)
 
 using PropertyValueOpt = std::optional<PropertyValue>;
 using PropertyMap = std::unordered_map<PropertyKey,PropertyValue>;
-using PropertyHas = std::unordered_map<PropertyKey,bool>;
 
 }

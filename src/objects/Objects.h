@@ -42,4 +42,4 @@ public:
     ObjectBunker();
 };
 
-} // namespace otg
+}
