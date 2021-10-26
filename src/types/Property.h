@@ -38,7 +38,6 @@ SPECIFY_PROPERTY_TYPE(Health,int)
 SPECIFY_PROPERTY_TYPE(Fuel,int)
 SPECIFY_PROPERTY_TYPE(Ammo,int)
 
-
 using PropertyValueOpt = std::optional<PropertyValue>;
 using PropertyMap = std::unordered_map<PropertyKey,PropertyValue>;
 

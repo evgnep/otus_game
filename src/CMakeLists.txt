@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.2)
 
 set(commands_headers
+    commands/AbstractCommand.h
+    commands/CommandMovable.h
     commands/Movable.h
 )
 
 set(commands_sources
+    commands/CommandMovable.cpp
     commands/Movable.cpp
 )
 

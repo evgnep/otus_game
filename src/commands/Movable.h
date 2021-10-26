@@ -13,6 +13,8 @@ public:
     virtual VelocityProperty::type getVelocity() const = 0;
 };
 
+using AbstractMovablePtr = std::shared_ptr<AbstractMovable>;
+
 class AdapterMovable : public AbstractMovable
 {
 public:
