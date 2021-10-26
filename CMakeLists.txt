@@ -5,8 +5,7 @@ set (this OtusTankGame)
 if (DEFINED ENV{TRAVIS_BUILD_NUMBER})
     project(${this} VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 else()
-    project(${this} 
-            VERSION 0.0.1)
+    project(${this} VERSION 0.0.1)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)

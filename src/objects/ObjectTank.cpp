@@ -2,41 +2,12 @@
 
 namespace otg {
 
-PropertyValueOpt ObjectTank::getProperty(PropertyKey key) const
+ObjectTank::ObjectTank()
+        : ObjectBase{std::pair{PropertyKey::Position,Vector{}},
+                     std::pair{PropertyKey::Velocity,Vector{}},
+                     std::pair{PropertyKey::Health,0},
+                     std::pair{PropertyKey::Fuel,0}}
 {
-    switch (key)
-    {
-    case PropertyKey::Position:
-        return m_position;
-    
-    case PropertyKey::Velocity:
-        return m_velocity;
-    
-    case PropertyKey::Fuel:
-        return m_fuel;
-    
-    default:
-        break;
-    }
-
-    return std::nullopt;
 }
 
-void ObjectTank::setProperty(PropertyKey key,const PropertyValue &value)
-{
-    switch (key)
-    {
-    case PropertyKey::Position:
-        m_position = std::get<Vector>(value);
-    
-    case PropertyKey::Velocity:
-        m_velocity = std::get<Vector>(value);
-    
-    case PropertyKey::Fuel:
-        m_fuel = std::get<int>(value);
-    
-    default:
-        break;
-    }   
-}
 }
