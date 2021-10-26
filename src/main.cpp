@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "objects/ObjectTank.h"
+#include "objects/Objects.h"
 
 int main (int, char **)
 {

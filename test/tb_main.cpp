@@ -1,53 +1,63 @@
 #include <gtest/gtest.h>
 
-#include "../src/objects/ObjectTank.cpp"
-#include "../src/objects/ObjectBase.cpp"
-#include "../src/types/Vector.cpp"
+#include "../src/objects/Objects.cpp"
 
-TEST(tb_main,objectTank)
+//class TestObjects : public ::testing::Test
+//{
+//protected:
+//	void SetUp()
+//	{
+//	}
+//	void TearDown()
+//	{
+//	}
+//};
+
+namespace detail {
+
+using PropertyHas = std::unordered_map<otg::PropertyKey,bool>;
+
+void checkPropertyInit(const otg::ObjectBasePtr& obj,const PropertyHas &hasProperty) 
 {
     using namespace otg;
 
-    const auto positionInit = Vector{1,1,0};
-    const auto velocityInit = Vector{10,0,0};
-    const auto helathInit = 100;
-    const auto fuelInit = 1000;
-    const auto ammoInit = 50;
+    const auto position = obj->getProperty(PropertyKey::Position);
+    const auto velocity = obj->getProperty(PropertyKey::Velocity);
+    const auto health = obj->getProperty(PropertyKey::Health);
+    const auto fuel = obj->getProperty(PropertyKey::Fuel);
+    const auto ammo = obj->getProperty(PropertyKey::Ammo);
 
-    const auto vectorFail = Vector{-1,-1,-1};
-    const auto intFail = -1;
+    EXPECT_EQ(position.has_value(),hasProperty.at(PropertyKey::Position));
+    EXPECT_EQ(velocity.has_value(),hasProperty.at(PropertyKey::Velocity));
+    EXPECT_EQ(health.has_value(),hasProperty.at(PropertyKey::Health));
+    EXPECT_EQ(fuel.has_value(),hasProperty.at(PropertyKey::Fuel));
+    EXPECT_EQ(ammo.has_value(),hasProperty.at(PropertyKey::Ammo));
+}
 
-    auto obj1 = std::make_shared<ObjectTank>();
-    obj1->setProperty(PropertyKey::Position,positionInit);
-    obj1->setProperty(PropertyKey::Velocity,velocityInit);
-    obj1->setProperty(PropertyKey::Health,helathInit);
-    obj1->setProperty(PropertyKey::Fuel,fuelInit);
-    obj1->setProperty(PropertyKey::Ammo,ammoInit);
+}
 
-    const auto checkProperty = [&] (const auto& obj) {
-        try {
-            auto position = std::get<Vector>(obj->getProperty(PropertyKey::Position).value_or(vectorFail));
-            auto velocity = std::get<Vector>(obj->getProperty(PropertyKey::Velocity).value_or(vectorFail));
-            auto health = std::get<int>(obj->getProperty(PropertyKey::Health).value_or(intFail));
-            auto fuel = std::get<int>(obj->getProperty(PropertyKey::Fuel).value_or(intFail));
-            auto ammo = std::get<int>(obj->getProperty(PropertyKey::Ammo).value_or(intFail));
+TEST(tb_main,objectBunkerInit)
+{
+    const auto obj = std::make_shared<otg::ObjectBunker>();
+    detail::PropertyHas property{{otg::PropertyKey::Position,true},
+                                 {otg::PropertyKey::Velocity,false},
+                                 {otg::PropertyKey::Health,true},
+                                 {otg::PropertyKey::Fuel,true},
+                                 {otg::PropertyKey::Ammo,true}};
 
-            EXPECT_EQ(position,positionInit);
-            EXPECT_EQ(velocity,velocityInit);
-            EXPECT_EQ(health,helathInit);
-            EXPECT_EQ(fuel,fuelInit);
-            EXPECT_EQ(ammo,intFail);
-        } 
-        catch (...) {
-            FAIL();
-        }
-    };
+    detail::checkPropertyInit(obj,property);
+}
 
-    checkProperty(obj1);
-
-    auto obj2{obj1};
-
-    checkProperty(obj2);
+TEST(tb_main,objectTankInit)
+{
+    const auto obj = std::make_shared<otg::ObjectTank>();
+    detail::PropertyHas property{{otg::PropertyKey::Position,true},
+                                 {otg::PropertyKey::Velocity,true},
+                                 {otg::PropertyKey::Health,true},
+                                 {otg::PropertyKey::Fuel,true},
+                                 {otg::PropertyKey::Ammo,true}};
+    
+    detail::checkPropertyInit(obj,property);
 }
 
 TEST(tb_main,move)

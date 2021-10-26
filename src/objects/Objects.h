@@ -24,8 +24,22 @@ private:
   bool hasProperty(PropertyKey key) const;
 };
 
+using ObjectBasePtr = std::shared_ptr<ObjectBase>;
+
 template <typename... Args>
 ObjectBase::ObjectBase(Args &&... args)
     : m_propertys{std::forward<Args>(args)...} {}
+
+class ObjectTank : public ObjectBase
+{
+public:
+    ObjectTank();
+};
+
+class ObjectBunker : public ObjectBase
+{
+public:
+    ObjectBunker();
+};
 
 } // namespace otg
