@@ -1,11 +1,16 @@
 #pragma once
 
+#include <memory>
+
 namespace otg {
+class ObjectBase;
 
 class AbstractCommand
 {
 public:
-    virtual void execute() = 0;
+    virtual std::shared_ptr<ObjectBase> execute() = 0;
 };
+
+using AbstractCommandPtr = std::shared_ptr<AbstractCommand>;
 
 }

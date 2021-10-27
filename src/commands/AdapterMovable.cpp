@@ -1,12 +1,13 @@
-#include "Movable.h"
+#include "AdapterMovable.h"
 
 #include <variant>
 
 namespace otg {
 
-AdapterMovable::AdapterMovable(const ObjectBasePtr& obj)
+AdapterMovable::AdapterMovable(const ObjectBasePtr &obj)
     : m_obj{obj}
 {}
+
 
 PositionProperty::type AdapterMovable::getPosition() const
 {
@@ -37,6 +38,11 @@ VelocityProperty::type AdapterMovable::getVelocity() const
     }
 
     return Type{};
+}
+
+ObjectBasePtr AdapterMovable::getObject() const
+{
+    return m_obj;
 }
 
 }

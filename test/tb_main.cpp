@@ -1,17 +1,9 @@
 #include <gtest/gtest.h>
 
 #include "../src/objects/Objects.cpp"
-
-//class TestObjects : public ::testing::Test
-//{
-//protected:
-//	void SetUp()
-//	{
-//	}
-//	void TearDown()
-//	{
-//	}
-//};
+#include "../src/types/Vector.cpp"
+#include "../src/commands/AdapterMovable.cpp"
+#include "../src/commands/CommandMovable.cpp"
 
 namespace detail {
 
@@ -62,7 +54,26 @@ TEST(tb_main,objectTankInit)
 
 TEST(tb_main,move)
 {
-    EXPECT_EQ(true,true);
+    using namespace otg;
+
+    ObjectBasePtr tank = std::make_shared<ObjectTank>();
+    
+    tank->setProperty(PropertyKey::Position,Vector{12,5,0});
+    tank->setProperty(PropertyKey::Velocity,Vector{-7,3,0});
+
+    AbstractMovablePtr adapterMove = std::make_shared<AdapterMovable>(tank);
+    AbstractCommandPtr commandMove = std::make_shared<CommandMovable>(adapterMove);
+    tank = commandMove->execute();
+
+    const Vector expectPosition{5,8,0};
+    
+    try {
+        const auto actualPosition = std::get<Vector>(tank->getProperty(PropertyKey::Position).value_or(Vector{-1,-1,-1}));
+        EXPECT_EQ(actualPosition,expectPosition);
+    }
+    catch (std::bad_variant_access&) {
+        FAIL() << "Invalid property type";
+    }
 }
 
 int main (int argc,char *argv[])
