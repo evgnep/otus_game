@@ -14,7 +14,7 @@ public:
     virtual void setPosition(const PositionProperty::type &value) = 0;
     virtual VelocityProperty::type getVelocity() const = 0;
 
-    virtual ObjectBasePtr getObject() const = 0;
+    virtual AbstractObjectPtr getObject() const = 0;
 };
 
 using AbstractMovablePtr = std::shared_ptr<AbstractMovable>;
@@ -23,15 +23,15 @@ class AdapterMovable : public AbstractMovable
 {
 public:
     
-    explicit AdapterMovable(const ObjectBasePtr &obj);
+    explicit AdapterMovable(const AbstractObjectPtr &obj);
     
     PositionProperty::type getPosition() const override;
     void setPosition(const PositionProperty::type &value) override;
     VelocityProperty::type getVelocity() const override;
-    ObjectBasePtr getObject() const override;
+    AbstractObjectPtr getObject() const override;
 
 private:
-    ObjectBasePtr m_obj;
+    AbstractObjectPtr m_obj;
 };
 
 }

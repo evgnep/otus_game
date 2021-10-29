@@ -9,7 +9,7 @@ int main (int, char **)
 
     std::cout << "Start game..." << std::endl;
 
-    ObjectBasePtr tank = std::make_shared<ObjectTank>();
+    AbstractObjectPtr tank = std::make_shared<ObjectTank>();
 
     int x;
     int y;

@@ -2,7 +2,9 @@
 
 namespace otg {
 
-PropertyValueOpt ObjectBase::getProperty(PropertyKey key) const
+AbstractObject::~AbstractObject() = default;
+
+PropertyValueOpt AbstractObject::getProperty(PropertyKey key) const
 {
     if (hasProperty(key)) {
         return m_propertys.at(key);
@@ -11,20 +13,20 @@ PropertyValueOpt ObjectBase::getProperty(PropertyKey key) const
     return std::nullopt;
 }
 
-void ObjectBase::setProperty(PropertyKey key,const PropertyValue &value)
+void AbstractObject::setProperty(PropertyKey key,const PropertyValue &value)
 {
     if (hasProperty(key)) {
         m_propertys[key] = value;
     }
 }
 
-bool ObjectBase::hasProperty(PropertyKey key) const
+bool AbstractObject::hasProperty(PropertyKey key) const
 {
     return m_propertys.find(key) != m_propertys.end();
 }
 
 ObjectTank::ObjectTank()
-        : ObjectBase{PositionProperty::init_value,
+        : AbstractObject{PositionProperty::init_value,
                      VelocityProperty::init_value,
                      HealthProperty::init_value,
                      FuelProperty::init_value,
@@ -33,7 +35,7 @@ ObjectTank::ObjectTank()
 }
 
 ObjectBunker::ObjectBunker()
-        : ObjectBase{PositionProperty::init_value,
+        : AbstractObject{PositionProperty::init_value,
                      HealthProperty::init_value,
                      FuelProperty::init_value,
                      AmmoProperty::init_value}

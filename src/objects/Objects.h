@@ -7,7 +7,7 @@
 
 namespace otg {
 
-class ObjectBase {
+class AbstractObject {
 public:
 
   PropertyValueOpt getProperty(PropertyKey key) const;
@@ -16,7 +16,9 @@ public:
 protected:
 
   template <typename... Args>
-  explicit ObjectBase(Args &&... args);
+  explicit AbstractObject(Args &&... args);
+
+  virtual ~AbstractObject() = 0;
 
 private:
   PropertyMap m_propertys;
@@ -24,19 +26,19 @@ private:
   bool hasProperty(PropertyKey key) const;
 };
 
-using ObjectBasePtr = std::shared_ptr<ObjectBase>;
+using AbstractObjectPtr = std::shared_ptr<AbstractObject>;
 
 template <typename... Args>
-ObjectBase::ObjectBase(Args &&... args)
+AbstractObject::AbstractObject(Args &&... args)
     : m_propertys{std::forward<Args>(args)...} {}
 
-class ObjectTank : public ObjectBase
+class ObjectTank : public AbstractObject
 {
 public:
     ObjectTank();
 };
 
-class ObjectBunker : public ObjectBase
+class ObjectBunker : public AbstractObject
 {
 public:
     ObjectBunker();

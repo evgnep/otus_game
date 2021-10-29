@@ -4,7 +4,7 @@
 
 namespace otg {
 
-AdapterMovable::AdapterMovable(const ObjectBasePtr &obj)
+AdapterMovable::AdapterMovable(const AbstractObjectPtr &obj)
     : m_obj{obj}
 {}
 
@@ -40,7 +40,7 @@ VelocityProperty::type AdapterMovable::getVelocity() const
     return Type{};
 }
 
-ObjectBasePtr AdapterMovable::getObject() const
+AbstractObjectPtr AdapterMovable::getObject() const
 {
     return m_obj;
 }

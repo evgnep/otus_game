@@ -9,7 +9,7 @@ namespace detail {
 
 using PropertyHas = std::unordered_map<otg::PropertyKey,bool>;
 
-void checkPropertyInit(const otg::ObjectBasePtr& obj,const PropertyHas &hasProperty) 
+void checkPropertyInit(const otg::AbstractObjectPtr& obj,const PropertyHas &hasProperty) 
 {
     using namespace otg;
 
@@ -56,7 +56,7 @@ TEST(tb_main,move)
 {
     using namespace otg;
 
-    ObjectBasePtr tank = std::make_shared<ObjectTank>();
+    AbstractObjectPtr tank = std::make_shared<ObjectTank>();
     
     tank->setProperty(PropertyKey::Position,Vector{12,5,0});
     tank->setProperty(PropertyKey::Velocity,Vector{-7,3,0});
