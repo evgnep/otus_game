@@ -1,55 +1,45 @@
-
-# src cmd_prcsg
-
 cmake_minimum_required(VERSION 3.2)
 
-set(THIS game)
-set(SOURCES main.cpp)
-
-if (DEFINED ENV{TRAVIS_BUILD_NUMBER})
-    project(${THIS} VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
-else()
-    project(${THIS} VERSION 0.0.1)
-endif()
-
-add_executable(${THIS} ${SOURCES})
-
-set_target_properties(
-        ${THIS}
-        PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED ON
+set(commands_headers
+    commands/AbstractCommand.h
+    commands/CommandMovable.h
+    commands/AdapterMovable.h
 )
 
-target_include_directories(
-        ${THIS}
-        PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/../lib
+set(commands_sources
+    commands/CommandMovable.cpp
+    commands/AdapterMovable.cpp
 )
 
-target_link_libraries(
-        ${THIS}
-        ${LIBS}
+set(object_headers
+    objects/Objects.h
 )
 
-if (MSVC)
+set(object_sources
+    objects/Objects.cpp
+)
 
-    target_compile_options(
-        ${THIS}
-        PRIVATE
-        /W4
-    )
+set(types_headers
+    types/Property.h
+    types/Vector.h
+)
 
-else()
+set(types_sources
+    types/Vector.cpp
+)
 
-    target_compile_options(
-        ${THIS}
-        PRIVATE
-        -Wall -Wextra -pedantic -Werror
-    )
+add_library(OtgLib
+    STATIC
+    ${commands_headers}
+    ${commands_sources}
+    ${object_headers}
+    ${object_sources}
+    ${types_headers}
+    ${types_sources}
+)
 
-endif()
-
-install(TARGETS ${THIS} RUNTIME DESTINATION bin)
-
-
+target_compile_definitions(OtgLib
+    PUBLIC
+    UNICODE
+    _UNICODE
+)

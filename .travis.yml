@@ -11,11 +11,6 @@ install:
 - sudo apt-get install -qq g++-9
 - export CXX="g++-9"
 
-addons:    
- apt:
-    packages:
-      - doxygen
-
 before_script:
   #install google-test
   - sudo apt-get install libgtest-dev
@@ -35,17 +30,9 @@ script:
   - cmake .
   - cmake --build .
   - cmake --build . --target package
-  - doxygen Doxyfile
-  - ./test/tb_game
+  - ./test/tb_main
 deploy:
   provider: script
   skip_cleanup: true
   script:
-  - curl -T prj_game-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ucdandrey:$BINTRAY_API_KEY "https://api.bintray.com/content/cda/otus-cpp/prj_game/$TRAVIS_BUILD_NUMBER/prj_game-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
-
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  keep_history: true
-  on:
-    branch: master
+  - curl -H X-JFrog-Art-Api:$JFROG_API_KEY -XPUT "https://cdandrey.jfrog.io/artifactory/otus_game-debian/pool/OtusTankGame;deb.distribution=trusty;deb.component=main;deb.architecture=amd64;" -T OtusTankGame-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb
